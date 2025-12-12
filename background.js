@@ -43,7 +43,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 async function translateGoogleAppsScript(text, targetLang) {
     //https://script.google.com/macros/s/AKfycbzlRmR5dFn4So1vwUzVKE2O4lKlS5FSdPcot1NzuZ_lB8SkE9buMWUBa800szM1cGNc0Q/exec
     //https://script.google.com/macros/s/AKfycbzMOkdlSQaRh0j0vxQKaZoLYo9_lc7l_ownzX3UF-wNwfZeNjAoDD_X-kvBRFOgFIKiVg/exec
-    const url = `https://script.google.com/macros/s/AKfycbzMOkdlSQaRh0j0vxQKaZoLYo9_lc7l_ownzX3UF-wNwfZeNjAoDD_X-kvBRFOgFIKiVg/exec?q=${encodeURIComponent(text)}&source=auto&target=${encodeURIComponent(targetLang)}`;//&source=auto
+    //https://script.google.com/macros/s/AKfycbzMOkdlSQaRh0j0vxQKaZoLYo9_lc7l_ownzX3UF-wNwfZeNjAoDD_X-kvBRFOgFIKiVg/exec
+    const url = `https://script.google.com/macros/s/AKfycbwSkJJjP-ydBGrsLJreRpTGrBZMHOEWSRTXY-mi5JvaFQDHzox-AcEjfsVC66w314C4JQ/exec?q=${encodeURIComponent(text)}&target=${targetLang}`;//&source=auto
     const response = await fetch(url);
 // 檢查 HTTP 狀態碼
     if (!response.ok) {
