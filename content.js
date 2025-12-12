@@ -8,8 +8,16 @@ document.addEventListener("mouseup", async () => {
         return;
     }
 
-    chrome.runtime.sendMessage({ type: "TRANSLATE", text: selectedText }, (response) => {
-        showPopup(response.result);
+    chrome.storage.sync.get("isAItranslator", ({ isAItranslator }) => {
+        if (isAItranslator) {
+            chrome.runtime.sendMessage({ type: "translate_googleAppsScript", text: selectedText }, (response) => {
+                showPopup(response.result);
+            });
+        } else {
+            chrome.runtime.sendMessage({ type: "TRANSLATE", text: selectedText }, (response) => {
+                showPopup(response.result);
+            });
+        }
     });
 });
 

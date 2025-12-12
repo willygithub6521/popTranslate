@@ -105,15 +105,15 @@
 
     <div id="translationBox">翻譯示範文字</div>
 
-    <div class="switch-row">
-    <span class="switch-label">一般翻譯</span>
-
     <label class="switch">
         <input type="checkbox" id="aiToggle">
-        <span class="slider round"></span>
+        <span class="slider"></span>
     </label>
+    <span id="toggleLabel">一般翻譯</span>
 
-    <span class="switch-label">AI 翻譯</span>
+    <div class="api-row">
+        <span>OpenAI API Key: </span>
+        <input id="apiKeyInput" type="password" placeholder="sk-xxxx..." />
     </div>
 
     <button id="saveBtn">Save</button>

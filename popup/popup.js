@@ -1,6 +1,9 @@
 const langSelect = document.getElementById("lang");
 const saveBtn = document.getElementById("saveBtn");
 const savedMsg = document.getElementById("saved");
+const toggle = document.getElementById("aiToggle");
+const label = document.getElementById("toggleLabel");
+const apiKeyInput = document.getElementById("apiKeyInput");
 
 // 載入設定
 chrome.storage.sync.get(["targetLang"], (res) => {
@@ -12,12 +15,33 @@ chrome.storage.sync.get("fontSize", data => {
   updatePreview(data.fontSize || "medium");
 });
 
+chrome.storage.sync.get("isAItranslator", ({ isAItranslator }) => {
+  toggle.checked = !!isAItranslator;
+  label.textContent = isAItranslator ? "Google translate" : "一般翻譯";
+});
+
+// 載入 ai translate key
+chrome.storage.sync.get("apiKey", ({ apiKey }) => {
+    if (apiKey) apiKeyInput.value = apiKey;
+});
+
 // 儲存設定
 saveBtn.addEventListener("click", () => {
     chrome.storage.sync.set({ targetLang: langSelect.value }, () => {
         savedMsg.style.display = "block";
         setTimeout(() => savedMsg.style.display = "none", 1500);
     });
+});
+
+toggle.addEventListener("change", () => {
+  const isAItranslator = toggle.checked;
+  chrome.storage.sync.set({ isAItranslator });
+  label.textContent = isAItranslator ? "Google translate" : "一般翻譯";
+});
+
+// 儲存 ai translate key
+apiKeyInput.addEventListener("change", () => {
+    chrome.storage.sync.set({ apiKey: apiKeyInput.value });
 });
 
 document.querySelectorAll(".size-btn").forEach(btn => {
