@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>AI Translator Settings</title>
+    <style>
+        body {
+            width: 220px;
+            padding: 15px;
+            font-family: Inter, Arial, sans-serif;
+        }
+        label {
+            font-size: 14px;
+        }
+        select {
+            width: 100%;
+            margin-top: 8px;
+            padding: 6px;
+            border-radius: 6px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 12px;
+            border: none;
+            background-color: #4285f4;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #3367d6;
+        }
+        .saved {
+            margin-top: 10px;
+            color: green;
+            font-size: 13px;
+            display: none;
+        }
+        /* .size-btn {
+            padding: 5px 10px;
+            margin: 3px;
+            cursor: pointer;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        } */
+
+        /* popup 白框陰影強化 */
+        #translationBox {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+            box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .font-size-controls {
+            display: flex;
+            gap: 6px;         /* 三個按鈕間的距離 */
+            align-items: center;
+        }
+
+        .size-btn {
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 1px solid #d0d0d0;
+            background: #fafafa;
+            cursor: pointer;
+            color: black;
+            font-size: 13px;
+            transition: 0.15s;
+        }
+
+        .size-btn:hover {
+            background: #f0f0f0;
+            border-color: #bbb;
+        }
+
+        .size-btn:active {
+            background: #e6e6e6;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Translator Settings</h3>
+
+    <label for="lang">Translate To:</label>
+    <select id="lang">
+        <option value="zh-TW">繁體中文</option>
+        <option value="en">英文</option>
+        <option value="ja">日文</option>
+        <option value="ko">韓文</option>
+        <option value="fr">法文</option>
+        <option value="de">德文</option>
+    </select>
+
+    <span>字體大小：</span>
+    <div class="font-size-controls">
+        <button class="size-btn" data-size="small">小</button>
+        <button class="size-btn" data-size="medium">中</button>
+        <button class="size-btn" data-size="large">大</button>
+    </div>
+
+    <div id="translationBox">翻譯示範文字</div>
+
+    <div class="switch-row">
+    <span class="switch-label">一般翻譯</span>
+
+    <label class="switch">
+        <input type="checkbox" id="aiToggle">
+        <span class="slider round"></span>
+    </label>
+
+    <span class="switch-label">AI 翻譯</span>
+    </div>
+
+    <button id="saveBtn">Save</button>
+    <div class="saved" id="saved">Saved!</div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
