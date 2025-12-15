@@ -1,4 +1,6 @@
-const langSelect = document.getElementById("lang");
+const sourceSelect = document.getElementById("sourceLang");
+const targetSelect = document.getElementById("lang");
+const swapLangBtn = document.getElementById("swapLangBtn");
 const saveBtn = document.getElementById("saveBtn");
 const savedMsg = document.getElementById("saved");
 const toggle = document.getElementById("aiToggle");
@@ -6,9 +8,13 @@ const label = document.getElementById("toggleLabel");
 const apiKeyInput = document.getElementById("apiKeyInput");
 
 // 載入設定
-chrome.storage.sync.get(["targetLang"], (res) => {
-    langSelect.value = res.targetLang || "zh-TW";
-});
+chrome.storage.sync.get(
+  ["sourceLang", "targetLang"],
+  (res) => {
+    sourceSelect.value = res.sourceLang || "auto";
+    targetSelect.value = res.targetLang || "zh-TW";
+  }
+);
 
 // 啟動時讀取設定
 chrome.storage.sync.get("fontSize", data => {
@@ -27,9 +33,30 @@ chrome.storage.sync.get("apiKey", ({ apiKey }) => {
 
 // 儲存設定
 saveBtn.addEventListener("click", () => {
-    chrome.storage.sync.set({ targetLang: langSelect.value }, () => {
-        savedMsg.style.display = "block";
-        setTimeout(() => savedMsg.style.display = "none", 1500);
+    chrome.storage.sync.set(
+        {
+            sourceLang: sourceSelect.value,
+            targetLang: targetSelect.value
+        },
+        () => {
+            savedMsg.style.display = "block";
+            setTimeout(() => {
+                savedMsg.style.display = "none";
+            }, 1500);
+        }
+    );
+});
+
+// 交換語言
+swapLangBtn.addEventListener("click", () => {
+    const temp = sourceSelect.value;
+    sourceSelect.value = targetSelect.value;
+    targetSelect.value = temp;
+
+    // // 立即存檔
+    chrome.storage.sync.set({
+        sourceLang: sourceSelect.value,
+        targetLang: targetSelect.value
     });
 });
 
