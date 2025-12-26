@@ -31,6 +31,20 @@ chrome.storage.sync.get("apiKey", ({ apiKey }) => {
     if (apiKey) apiKeyInput.value = apiKey;
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("start DOMContentLoaded.")
+    const sourceSelect = document.getElementById("sourceLang");
+    const targetSelect = document.getElementById("lang");
+
+    populateLangSelect(sourceSelect);
+    populateLangSelect(targetSelect);
+
+    // 載入使用者之前的設定
+    chrome.storage.sync.get(["sourceLang", "targetLang"], (res) => {
+        sourceSelect.value = res.sourceLang || "en";
+        targetSelect.value = res.targetLang || "zh-TW";
+    });
+});
 // 儲存設定
 saveBtn.addEventListener("click", () => {
     chrome.storage.sync.set(
@@ -86,4 +100,19 @@ function updatePreview(size) {
   if (size === "small") box.style.fontSize = "14px";
   if (size === "medium") box.style.fontSize = "18px";
   if (size === "large") box.style.fontSize = "22px";
+}
+
+function populateLangSelect(selectEl) {
+  console.log("start populateLangSelect.");
+    if (!selectEl) return;
+
+    selectEl.innerHTML = ""; // 防止重複 append
+
+    Object.entries(LANGUAGES).forEach(([key, cfg]) => {
+        const opt = document.createElement("option");
+        console.log(`add label = ${cfg.label}, value = ${cfg.translate}`);
+        opt.value = cfg.translate;          // en / zh-TW / ja
+        opt.textContent = cfg.label;
+        selectEl.appendChild(opt);
+    });
 }

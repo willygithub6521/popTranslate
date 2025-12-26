@@ -28,7 +28,9 @@ document.addEventListener("mouseup", async () => {
 });
 
 function getTtsLang(lang) {
-    return ttsLangMap[lang] || "en-US";
+    // return ttsLangMap[lang] || "en-US";
+    console.log(`Language tts = ${LANGUAGES[lang].tts}`);
+    return LANGUAGES[lang].tts || "en-US";
 }
 
 function speakText(text, lang) {
